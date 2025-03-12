@@ -1,0 +1,648 @@
+:root {
+    --primary-gradient: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%);
+    --secondary-gradient: linear-gradient(135deg, #10B981 0%, #3B82F6 100%);
+    --dark-bg: #0F172A;
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --glass-bg: rgba(15, 23, 42, 0.6);
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --accent-color: #3B82F6;
+    --accent-secondary: #8B5CF6;
+    --success-color: #10B981;
+    --border-radius: 16px;
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 25%),
+        radial-gradient(circle at 30% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 30%);
+    background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.proposal-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Слайды */
+.slide {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 0;
+    position: relative;
+}
+
+/* Заголовки секций */
+.section-header {
+    margin-bottom: 60px;
+    position: relative;
+}
+
+.section-header h2 {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.section-line {
+    height: 4px;
+    width: 100px;
+    background: var(--primary-gradient);
+    border-radius: 2px;
+}
+
+/* Стеклянные карточки */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--border-radius);
+    border: var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    padding: 40px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Титульный слайд */
+#title-slide {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-text {
+    font-size: 5rem;
+    font-weight: 900;
+    margin-bottom: 24px;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1.1;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+}
+
+/* Кнопки */
+.gradient-button {
+    display: inline-block;
+    background: var(--primary-gradient);
+    color: white;
+    font-weight: 600;
+    padding: 16px 32px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+}
+
+.gradient-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.outline-button {
+    display: inline-block;
+    background: transparent;
+    color: white;
+    font-weight: 600;
+    padding: 14px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    margin-left: 16px;
+}
+
+.outline-button:hover {
+    border-color: var(--accent-color);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+/* Карточки преимуществ */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+}
+
+.benefit-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+}
+
+.benefit-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+}
+
+.benefit-text {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}
+
+/* Карточки решений */
+.solution-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    margin-bottom: 40px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.solution-card:hover {
+    transform: translateY(-5px);
+}
+
+.solution-number {
+    background: var(--primary-gradient);
+    color: white;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.solution-content {
+    padding: 30px;
+    flex: 1;
+}
+
+.solution-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.solution-icon {
+    font-size: 2rem;
+    margin-left: 16px;
+}
+
+.solution-description {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.features-section, .solution-benefits, .tech-section, .workflow-section {
+    margin-top: 24px;
+    padding: 20px;
+    background: rgba(15, 23, 42, 0.4);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.feature-title, .benefit-title, .tech-title, .workflow-title {
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.features-section ul, .solution-benefits ul {
+    list-style-type: none;
+}
+
+.features-section li, .solution-benefits li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 10px;
+}
+
+.features-section li:before, .solution-benefits li:before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.tech-category-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--accent-secondary);
+}
+
+.tech-category ul {
+    list-style-type: none;
+}
+
+.tech-category li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+}
+
+.tech-category li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+.workflow-steps {
+    padding-left: 24px;
+}
+
+.workflow-steps li {
+    margin-bottom: 10px;
+}
+
+.solution-meta {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 16px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.solution-price {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+}
+
+.solution-time {
+    color: var(--text-secondary);
+}
+
+/* Специальные карточки */
+.featured-card .solution-number {
+    background: var(--primary-gradient);
+}
+
+.combo-card .solution-number {
+    background: var(--secondary-gradient);
+}
+
+.discount {
+    font-size: 0.9rem;
+    color: var(--success-color);
+    margin-left: 8px;
+}
+
+/* Требования к оборудованию */
+.requirements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.requirement-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.requirement-icon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+}
+
+.requirement-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    color: var(--accent-color);
+}
+
+.requirement-card ul {
+    list-style-type: none;
+}
+
+.requirement-card li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 10px;
+}
+
+.requirement-card li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--success-color);
+}
+
+.kiosk-options {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.kiosk-options h3 {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+    color: var(--accent-color);
+}
+
+.kiosk-options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.kiosk-option {
+    background: rgba(15, 23, 42, 0.4);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.kiosk-option-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.kiosk-option-price {
+    color: var(--accent-color);
+}
+
+/* Сроки разработки */
+.timeline-container {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.timeline-header {
+    margin-bottom: 24px;
+}
+
+.timeline-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.timeline {
+    position: relative;
+}
+
+.timeline:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 30px;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 80px;
+    margin-bottom: 30px;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+    z-index: 1;
+}
+
+.timeline-content {
+    background: rgba(15, 23, 42, 0.4);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.timeline-item-title {
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+
+.timeline-content ul {
+    list-style-type: none;
+}
+
+.timeline-content li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 8px;
+}
+
+.timeline-content li:before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+/* Таблица бюджета */
+.budget-table {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 40px;
+}
+
+.table-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    background: rgba(15, 23, 42, 0.8);
+    padding: 16px;
+    font-weight: 600;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.table-row:last-child {
+    border-bottom: none;
+}
+
+.combo-row {
+    background: rgba(59, 130, 246, 0.15);
+    font-weight: 600;
+}
+
+.addon-row {
+    background: rgba(15, 23, 42, 0.4);
+    font-size: 0.95rem;
+}
+
+.additional-options {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.additional-options h3 {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+    color: var(--accent-color);
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.option-item {
+    background: rgba(15, 23, 42, 0.4);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.option-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.option-price {
+    color: var(--accent-color);
+}
+
+/* Финальный слайд */
+#final-slide {
+    min-height: 60vh;
+}
+
+.final-text {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin: 20px 0 40px;
+}
+
+.cta-buttons {
+    margin-top: 40px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .title-text {
+        font-size: 3rem;
+    }
+    
+    .section-header h2 {
+        font-size: 2.2rem;
+    }
+    
+    .solution-card {
+        flex-direction: column;
+    }
+    
+    .solution-number {
+        min-width: auto;
+        padding: 10px;
+    }
+    
+    .table-header, .table-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .table-cell:first-child {
+        font-weight: 600;
+    }
+    
+    .glass-card {
+        padding: 30px 20px;
+    }
+    
+    .cta-buttons {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .outline-button {
+        margin-left: 0;
+        margin-top: 16px;
+    }
+    
+    .tech-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .timeline-item {
+        padding-left: 60px;
+    }
+    
+    .timeline-marker {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
+} 
