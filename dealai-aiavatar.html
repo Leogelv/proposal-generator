@@ -12,31 +12,130 @@
         /* Инлайн-стили для адаптивной главной секции без изменения основных стилей */
         #title-slide {
             width: 100vw;
-            margin-left: calc(-50vw + 50%);
-            box-sizing: border-box;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
             position: relative;
-            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px 0;
+            background-color: var(--dark-bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 90% 50%, rgba(139, 92, 246, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 30% 80%, rgba(236, 72, 153, 0.2) 0%, transparent 40%);
+            background-attachment: fixed;
+            overflow: hidden;
         }
         
-        .title-slide-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .title-content {
             width: 100%;
+            max-width: 1200px;
+            padding: 0 20px;
+            text-align: center;
+            z-index: 2;
         }
         
-        .title-text {
-            font-size: clamp(2.5rem, 5vw, 5rem);
-            line-height: 1.2;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            hyphens: auto;
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1.1;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .ai-emoji {
+            font-size: 2.5rem;
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+        
+        .cta-primary {
+            display: inline-block;
+            background: var(--primary-gradient);
+            color: white;
+            font-weight: 600;
+            padding: 18px 36px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* Бургер-меню */
+        .burger-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            cursor: pointer;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+        
+        .burger-icon {
+            font-size: 1.8rem;
+        }
+        
+        .menu-container {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-left: var(--glass-border);
+            z-index: 999;
+            transition: right 0.3s ease;
+            padding: 100px 30px 30px;
+            box-shadow: var(--glass-shadow);
+        }
+        
+        .menu-container.open {
+            right: 0;
+        }
+        
+        .nav-link {
+            display: block;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 15px 0;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #fff;
+            padding-left: 10px;
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        /* Остальные стили */
         .solution-content {
             overflow-wrap: break-word;
             word-wrap: break-word;
@@ -51,14 +150,16 @@
             word-break: break-word;
         }
         
-        .floating-nav {
-            z-index: 9999;
-        }
-        
-        /* Фиксы для мобильных устройств */
         @media (max-width: 768px) {
-            .title-text {
-                font-size: clamp(2rem, 8vw, 3rem);
+            .hero-title {
+                font-size: clamp(2.5rem, 8vw, 4rem);
+            }
+            
+            .burger-menu {
+                top: 10px;
+                right: 10px;
+                width: 50px;
+                height: 50px;
             }
             
             .cta-buttons {
@@ -85,28 +186,35 @@
                 flex-direction: column;
                 gap: 20px;
             }
-            
-            .timeline-progress-container {
-                margin-left: 20px;
-                margin-right: 20px;
-            }
-            
-            .timeline-progress-marker {
-                font-size: 0.7rem;
-                padding: 3px 6px;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Титульный слайд на всю ширину экрана -->
+    <!-- Бургер-меню -->
+    <div class="burger-menu" onclick="toggleMenu()">
+        <div class="burger-icon">☰</div>
+    </div>
+    
+    <nav class="menu-container" id="menu">
+        <a href="#title-slide" class="nav-link">Главная</a>
+        <a href="#benefits-slide" class="nav-link">Преимущества</a>
+        <a href="#solutions-slide" class="nav-link">Решения</a>
+        <a href="#requirements-slide" class="nav-link">Требования</a>
+        <a href="#timeline-slide" class="nav-link">Сроки</a>
+        <a href="#budget-slide" class="nav-link">Смета</a>
+        <a href="#final-slide" class="nav-link">Контакты</a>
+    </nav>
+
+    <!-- Полноэкранный титульный слайд с эмодзи -->
     <section class="slide" id="title-slide">
-        <div class="title-slide-content">
-            <div class="glass-card">
-                <h1 class="title-text">ИНТЕЛЛЕКТУАЛЬНЫЕ<br>РЕШЕНИЯ ДЛЯ ФОРУМОВ</h1>
-                <div class="subtitle">Инновационные ИИ-системы для нетворкинга и поддержки участников</div>
-                <div class="gradient-button">Начать сотрудничество</div>
+        <div class="title-content">
+            <h1 class="hero-title">ИНТЕЛЛЕКТУАЛЬНЫЕ<br>РЕШЕНИЯ ДЛЯ ФОРУМОВ</h1>
+            <div class="hero-subtitle">
+                <span class="ai-emoji">🤖</span> 
+                Инновационные ИИ-системы для нетворкинга и поддержки участников 
+                <span class="ai-emoji">🚀</span>
             </div>
+            <div class="cta-primary">Начать сотрудничество</div>
         </div>
     </section>
 
@@ -119,19 +227,19 @@
             </div>
             <div class="benefits-grid">
                 <div class="benefit-card">
-                    <div class="benefit-icon">✅</div>
+                    <div class="benefit-icon">🧠</div>
                     <div class="benefit-text">Два взаимодополняющих ИИ-решения для форумов</div>
                 </div>
                 <div class="benefit-card">
-                    <div class="benefit-icon">✅</div>
+                    <div class="benefit-icon">📱</div>
                     <div class="benefit-text">Интеграция с Telegram для максимального удобства</div>
                 </div>
                 <div class="benefit-card">
-                    <div class="benefit-icon">✅</div>
+                    <div class="benefit-icon">🎤</div>
                     <div class="benefit-text">Голосовой и текстовый интерфейс для всех пользователей</div>
                 </div>
                 <div class="benefit-card">
-                    <div class="benefit-icon">✅</div>
+                    <div class="benefit-icon">⏱️</div>
                     <div class="benefit-text">Готовность к запуску уже к 25 марта</div>
                 </div>
             </div>
@@ -328,7 +436,7 @@
                     <div class="requirement-icon">💻</div>
                     <h3>Аппаратное обеспечение</h3>
                     <ul>
-                        <li>Сенсорный экран (15-22 дюйма, Full HD)</li>
+                        <li>LED дисплей большого размера (до 2 метров высотой)</li>
                         <li>Микрофон с шумоподавлением</li>
                         <li>Процессор: минимум Intel i5 или аналог</li>
                         <li>Оперативная память: 8 ГБ</li>
@@ -357,24 +465,6 @@
                         <li>Эргономичное расположение элементов</li>
                         <li>Защита от повреждений</li>
                     </ul>
-                </div>
-            </div>
-            
-            <div class="kiosk-options">
-                <h3>Варианты размещения киосков</h3>
-                <div class="kiosk-options-grid">
-                    <div class="kiosk-option">
-                        <div class="kiosk-option-title">Аренда киосков для DEALAI</div>
-                        <div class="kiosk-option-price">5 000 $ за 5 штук</div>
-                    </div>
-                    <div class="kiosk-option">
-                        <div class="kiosk-option-title">Покупка киосков для DEALAI</div>
-                        <div class="kiosk-option-price">от 10 000 $</div>
-                    </div>
-                    <div class="kiosk-option">
-                        <div class="kiosk-option-title">Аренда киосков для AIAvatar</div>
-                        <div class="kiosk-option-price">1 000 $ за единицу</div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -474,16 +564,6 @@
                     <div class="table-cell">28 000 $ <span class="discount">(экономия 2 000 $)</span></div>
                     <div class="table-cell">13 дней</div>
                 </div>
-                <div class="table-row addon-row">
-                    <div class="table-cell">Аренда киосков для DEALAI (5 штук)</div>
-                    <div class="table-cell">5 000 $</div>
-                    <div class="table-cell">—</div>
-                </div>
-                <div class="table-row addon-row">
-                    <div class="table-cell">Аренда киосков для AIAvatar (за единицу)</div>
-                    <div class="table-cell">1 000 $</div>
-                    <div class="table-cell">—</div>
-                </div>
             </div>
             
             <div class="additional-options">
@@ -519,5 +599,27 @@
     </div>
 
     <script src="script-dealai.js"></script>
+    <script>
+        // Скрипт для бургер-меню
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('open');
+        }
+        
+        // Закрытие меню при клике на ссылку
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('menu').classList.remove('open');
+                
+                // Плавный скролл
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Предотвращаем стандартное действие
+                event.preventDefault();
+            });
+        });
+    </script>
 </body>
 </html> 
