@@ -37,6 +37,7 @@
         }
         
         .hero-title {
+            font-family: 'Unbounded', sans-serif;
             font-size: clamp(3rem, 8vw, 6rem);
             line-height: 1.1;
             font-weight: 900;
@@ -45,6 +46,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            animation: titleAnimation 1.5s ease-out forwards;
         }
         
         .hero-subtitle {
@@ -54,12 +56,17 @@
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards 0.5s;
         }
         
         .ai-emoji {
             font-size: 2.5rem;
             margin: 0 10px;
             vertical-align: middle;
+            display: inline-block;
+            animation: pulseEmoji 2s infinite;
         }
         
         .cta-primary {
@@ -73,6 +80,73 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards 1s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-primary:after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shineEffect 4s infinite;
+        }
+        
+        /* Анимации */
+        @keyframes titleAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+                background-position: 0% 50%;
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                background-position: 100% 50%;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulseEmoji {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+        
+        @keyframes shineEffect {
+            0% {
+                left: -100%;
+                top: -100%;
+            }
+            20%, 100% {
+                left: 100%;
+                top: 100%;
+            }
         }
         
         /* Бургер-меню */
@@ -93,6 +167,11 @@
             justify-content: center;
             border: var(--glass-border);
             box-shadow: var(--glass-shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .burger-menu:hover {
+            transform: scale(1.1);
         }
         
         .burger-icon {
@@ -205,7 +284,7 @@
         <a href="#final-slide" class="nav-link">Контакты</a>
     </nav>
 
-    <!-- Полноэкранный титульный слайд с эмодзи -->
+    <!-- Полноэкранный титульный слайд с эмодзи и анимациями -->
     <section class="slide" id="title-slide">
         <div class="title-content">
             <h1 class="hero-title">ИНТЕЛЛЕКТУАЛЬНЫЕ<br>РЕШЕНИЯ ДЛЯ ФОРУМОВ</h1>
@@ -607,7 +686,7 @@
         
         // Закрытие меню при клике на ссылку
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function(event) {
                 document.getElementById('menu').classList.remove('open');
                 
                 // Плавный скролл
@@ -619,6 +698,17 @@
                 // Предотвращаем стандартное действие
                 event.preventDefault();
             });
+        });
+        
+        // Движение фона при перемещении мыши
+        document.addEventListener('mousemove', function(e) {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            const titleSlide = document.getElementById('title-slide');
+            titleSlide.style.backgroundPosition = 
+                `calc(10% + ${moveX}px) calc(20% + ${moveY}px), 
+                 calc(90% + ${-moveX}px) calc(50% + ${-moveY}px), 
+                 calc(30% + ${moveX}px) calc(80% + ${-moveY}px)`;
         });
     </script>
 </body>
