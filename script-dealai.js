@@ -71,7 +71,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Добавляем интерактивность для кнопок
-    document.querySelectorAll('.gradient-button, .outline-button').forEach(button => {
+    document.querySelectorAll('.gradient-button, .outline-button, .cta-primary').forEach(button => {
+        if (!button.hasAttribute('href')) {
+            button.addEventListener('click', () => {
+                window.open('https://t.me/nikmcfly', '_blank');
+            });
+        }
+        
         button.addEventListener('mouseenter', () => {
             button.style.transform = 'translateY(-3px)';
             button.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.2)';

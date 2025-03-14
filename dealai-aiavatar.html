@@ -90,6 +90,7 @@
             animation: fadeInUp 1s ease-out forwards 1s;
             position: relative;
             overflow: hidden;
+            text-decoration: none;
         }
         
         .cta-primary:after {
@@ -314,7 +315,7 @@
                 Инновационные ИИ-системы для нетворкинга и поддержки участников 
                 <span class="ai-emoji">🚀</span>
             </div>
-            <div class="cta-primary">Начать сотрудничество</div>
+            <a href="https://t.me/nikmcfly" class="cta-primary" target="_blank">Начать сотрудничество</a>
         </div>
     </section>
 
@@ -691,8 +692,8 @@
                 <h2>Готовы стартовать сразу после подтверждения! 🚀</h2>
                 <p class="final-text">Инновационные ИИ-решения для вашего форума будут готовы к 25 марта</p>
                 <div class="cta-buttons">
-                    <div class="gradient-button">Подписать договор</div>
-                    <div class="outline-button">Задать вопрос</div>
+                    <a href="https://t.me/nikmcfly" class="gradient-button" target="_blank">Подписать договор</a>
+                    <a href="https://t.me/nikmcfly" class="outline-button" target="_blank">Задать вопрос</a>
                 </div>
             </div>
         </section>
@@ -712,12 +713,14 @@
                 
                 // Плавный скролл
                 const targetId = this.getAttribute('href');
-                document.querySelector(targetId).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                
-                // Предотвращаем стандартное действие
-                event.preventDefault();
+                if (targetId.startsWith('#')) {
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Предотвращаем стандартное действие только для внутренних ссылок
+                    event.preventDefault();
+                }
             });
         });
         
@@ -726,10 +729,12 @@
             const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
             const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
             const titleSlide = document.getElementById('title-slide');
-            titleSlide.style.backgroundPosition = 
-                `calc(10% + ${moveX}px) calc(20% + ${moveY}px), 
-                 calc(90% + ${-moveX}px) calc(50% + ${-moveY}px), 
-                 calc(30% + ${moveX}px) calc(80% + ${-moveY}px)`;
+            if (titleSlide) {
+                titleSlide.style.backgroundPosition = 
+                    `calc(10% + ${moveX}px) calc(20% + ${moveY}px), 
+                     calc(90% + ${-moveX}px) calc(50% + ${-moveY}px), 
+                     calc(30% + ${moveX}px) calc(80% + ${-moveY}px)`;
+            }
         });
     </script>
 </body>
