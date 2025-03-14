@@ -244,41 +244,16 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(typeWriter, 500);
     }
     
-    // Добавляем счетчики с анимацией для цен
-    document.querySelectorAll('.solution-price').forEach(price => {
-        const priceText = price.textContent;
-        const priceValue = parseInt(priceText.match(/\d+/)[0]);
-        
-        // Создаем элемент для анимированного числа
-        const priceNumber = document.createElement('span');
-        priceNumber.classList.add('price-number');
-        price.innerHTML = price.innerHTML.replace(/\d+ \$/, `<span class="price-number">0</span> $`);
-        
-        // Наблюдаем за появлением элемента
-        const priceObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Анимируем счетчик
-                    let currentValue = 0;
-                    const duration = 1500; // ms
-                    const increment = priceValue / (duration / 16);
-                    
-                    const updateCounter = () => {
-                        if (currentValue < priceValue) {
-                            currentValue += increment;
-                            if (currentValue > priceValue) currentValue = priceValue;
-                            entry.target.querySelector('.price-number').textContent = Math.floor(currentValue).toLocaleString();
-                            requestAnimationFrame(updateCounter);
-                        }
-                    };
-                    
-                    updateCounter();
-                    priceObserver.unobserve(entry.target);
-                }
+    // Проверяем все ссылки и кнопки, чтобы они вели на t.me/nikmcfly
+    document.querySelectorAll('a, button, .cta-primary, .gradient-button, .outline-button').forEach(element => {
+        if (element.tagName === 'A' && !element.getAttribute('href').startsWith('#')) {
+            element.setAttribute('href', 'https://t.me/nikmcfly');
+            element.setAttribute('target', '_blank');
+        } else if (element.tagName !== 'A') {
+            element.addEventListener('click', () => {
+                window.open('https://t.me/nikmcfly', '_blank');
             });
-        }, { threshold: 0.5 });
-        
-        priceObserver.observe(price);
+        }
     });
 });
 
