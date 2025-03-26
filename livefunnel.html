@@ -119,6 +119,7 @@
             position: relative;
             overflow: hidden;
             text-decoration: none;
+            z-index: 2;
         }
         
         .cta-primary:after {
@@ -136,6 +137,215 @@
             );
             transform: rotate(30deg);
             animation: shineEffect 4s infinite;
+        }
+        
+        /* Новые эффекты для кнопки */
+        .cta-button-wrapper {
+            position: relative;
+            margin: 40px 0;
+            display: inline-block;
+        }
+        
+        .pulse-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border-radius: 50px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, rgba(139, 92, 246, 0.2) 70%, transparent 100%);
+            animation: pulse-animation 2s infinite;
+            z-index: 1;
+        }
+        
+        .glow-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+            border-radius: 50px;
+            background: transparent;
+            border: 2px solid rgba(139, 92, 246, 0.5);
+            opacity: 0;
+            animation: glow-animation 3s infinite;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: linear-gradient(to right, #3B82F6, #8B5CF6);
+            animation-duration: 2s;
+            animation-timing-function: ease-out;
+            animation-iteration-count: infinite;
+            opacity: 0;
+            z-index: 1;
+        }
+        
+        .particle:nth-child(1) {
+            animation-name: particle-animation-1;
+            animation-delay: 0.2s;
+        }
+        
+        .particle:nth-child(2) {
+            animation-name: particle-animation-2;
+            animation-delay: 0.5s;
+        }
+        
+        .particle:nth-child(3) {
+            animation-name: particle-animation-3;
+            animation-delay: 0.8s;
+        }
+        
+        .particle:nth-child(4) {
+            animation-name: particle-animation-4;
+            animation-delay: 1.1s;
+        }
+        
+        .particle:nth-child(5) {
+            animation-name: particle-animation-5;
+            animation-delay: 1.4s;
+        }
+        
+        .cta-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.5);
+        }
+        
+        @keyframes pulse-animation {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes glow-animation {
+            0%, 100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.9);
+            }
+            50% {
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+        
+        @keyframes particle-animation-1 {
+            0% {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.2;
+            }
+            100% {
+                top: 20%;
+                left: 20%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes particle-animation-2 {
+            0% {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.2;
+            }
+            100% {
+                top: 20%;
+                left: 80%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes particle-animation-3 {
+            0% {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.2;
+            }
+            100% {
+                top: 80%;
+                left: 80%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes particle-animation-4 {
+            0% {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.2;
+            }
+            100% {
+                top: 80%;
+                left: 20%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes particle-animation-5 {
+            0% {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.2;
+            }
+            100% {
+                top: 10%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+            }
         }
         
         /* Стили для таблицы */
@@ -307,7 +517,16 @@
                 </div>
             </div>
             
-            <a href="https://t.me/sapientweb" class="cta-primary">Начать сотрудничество</a>
+            <div class="cta-button-wrapper">
+                <div class="pulse-effect"></div>
+                <div class="glow-effect"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <a href="https://t.me/nikmcfly" class="cta-primary">Начать сотрудничество</a>
+            </div>
         </div>
     </section>
 
@@ -513,7 +732,16 @@
                     <p>Готовы обсудить детали и запустить проект?</p>
                     <p>📩 <strong>Свяжитесь с нами!</strong></p>
                     
-                    <a href="https://t.me/sapientweb" class="cta-primary">Начать сотрудничество</a>
+                    <div class="cta-button-wrapper">
+                        <div class="pulse-effect"></div>
+                        <div class="glow-effect"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <a href="https://t.me/nikmcfly" class="cta-primary">Начать сотрудничество</a>
+                    </div>
                     
                     <p style="margin-top: 20px;">🚀 <strong>Команда разработчиков AI-ассистента</strong></p>
                 </div>
@@ -528,7 +756,7 @@
             allButtons.forEach(button => {
                 button.setAttribute('target', '_blank');
                 if (!button.href.includes('t.me/')) {
-                    button.href = 'https://t.me/sapientweb';
+                    button.href = 'https://t.me/nikmcfly';
                 }
             });
 
