@@ -54,10 +54,10 @@
         
         .hero-title {
             font-family: 'Unbounded', sans-serif;
-            font-size: clamp(1.8rem, 5vw, 4.5rem);
-            line-height: 1.3;
+            font-size: clamp(1.6rem, 4vw, 3.5rem);
+            line-height: 1.2;
             font-weight: 900;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background: var(--vtc-gradient);
             -webkit-background-clip: text;
             background-clip: text;
@@ -71,9 +71,9 @@
         }
         
         .hero-subtitle {
-            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-size: clamp(0.9rem, 1.5vw, 1.3rem);
             color: var(--text-secondary);
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             max-width: 90%;
             margin-left: auto;
             margin-right: auto;
@@ -85,20 +85,11 @@
         }
         
         .vtc-emoji {
-            font-size: 2.5rem;
-            margin: 0 10px;
+            font-size: 2rem;
+            margin: 0 5px;
             vertical-align: middle;
             display: inline-block;
-            animation: floatEmoji 3s ease-in-out infinite;
-        }
-        
-        @keyframes floatEmoji {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-15px) rotate(5deg);
-            }
+            animation: none;
         }
         
         .cta-primary {
@@ -106,18 +97,19 @@
             background: var(--vtc-gradient);
             color: white;
             font-weight: 600;
-            padding: 18px 36px;
+            padding: 12px 28px;
             border-radius: 50px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeInUp 1s ease-out forwards 1s;
+            animation: fadeInUp 1s ease-out forwards 0.8s;
             position: relative;
             overflow: hidden;
             text-decoration: none;
+            margin-top: 10px;
         }
         
         .cta-primary:after {
@@ -287,24 +279,33 @@
             }
             
             .hero-title {
-                font-size: clamp(1.6rem, 6vw, 3rem);
-                padding: 0 10px;
-                line-height: 1.4;
+                font-size: clamp(1.4rem, 5vw, 2.5rem);
+                line-height: 1.3;
+                margin-bottom: 10px;
             }
             
             .hero-subtitle {
-                font-size: clamp(0.9rem, 2vw, 1.4rem);
-                margin-bottom: 30px;
-                padding: 0 10px;
+                font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+                margin-bottom: 15px;
             }
             
-            .vtc-emoji {
-                font-size: 1.8rem;
+            .ui-screenshots {
+                gap: 10px;
+                margin: 10px auto;
+            }
+            
+            .ui-screenshot {
+                max-width: 45%;
             }
             
             .cta-primary {
-                padding: 15px 30px;
+                padding: 10px 20px;
                 font-size: 1rem;
+                margin-top: 5px;
+            }
+            
+            .vtc-emoji {
+                font-size: 1.5rem;
             }
             
             .glass-card, .benefit-item {
@@ -356,6 +357,28 @@
             .benefit-item {
                 padding: 12px 10px;
                 font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-height: 800px) {
+            .hero-title {
+                font-size: clamp(1.4rem, 4vw, 2.8rem);
+                margin-bottom: 10px;
+            }
+            
+            .hero-subtitle {
+                font-size: clamp(0.8rem, 1.2vw, 1rem);
+                margin-bottom: 12px;
+                line-height: 1.4;
+            }
+            
+            .ui-screenshots {
+                margin: 8px auto;
+            }
+            
+            .cta-primary {
+                padding: 8px 20px;
+                font-size: 1rem;
             }
         }
         
@@ -529,16 +552,16 @@
         .ui-screenshots {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin: 20px auto 30px;
-            max-width: 90%;
+            gap: 15px;
+            margin: 15px auto;
+            max-width: 100%;
             flex-wrap: wrap;
         }
 
         .ui-screenshot {
-            max-width: 45%;
+            max-width: 40%;
             height: auto;
-            border-radius: 12px;
+            border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
         }
@@ -547,12 +570,7 @@
             transform: translateY(-5px);
         }
 
-        @media (max-width: 768px) {
-            .ui-screenshots {
-                gap: 15px;
-                margin: 15px auto 25px;
-            }
-            
+        @media (max-width: 576px) {
             .ui-screenshot {
                 max-width: 80%;
             }
