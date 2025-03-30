@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ВТЦ - Виртуальный Торговый Центр | Коммерческое предложение</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Unbounded:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles-dealai.css">
+    <style>
+        :root {
+            --vtc-primary: #3B82F6;
+            --vtc-secondary: #1D4ED8;
+            --vtc-accent: #10B981;
+            --vtc-dark: #0F172A;
+            --vtc-light: #F8FAFC;
+            --vtc-gradient: linear-gradient(to right, #3B82F6, #10B981);
+            --vtc-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Основные стили */
+        body {
+            background-color: var(--vtc-dark);
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233B82F6' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        /* Титульная секция */
+        #title-slide {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--vtc-dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 90% 50%, rgba(16, 185, 129, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 30% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 40%);
+            background-attachment: fixed;
+            overflow: hidden;
+        }
+        
+        .title-content {
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 20px;
+            text-align: center;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-family: 'Unbounded', sans-serif;
+            font-size: clamp(2rem, 6vw, 5rem);
+            line-height: 1.2;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: var(--vtc-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: titleAnimation 1.5s ease-out forwards;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            max-width: 100%;
+            padding: 0 10px;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards 0.5s;
+        }
+        
+        .vtc-emoji {
+            font-size: 2.5rem;
+            margin: 0 10px;
+            vertical-align: middle;
+            display: inline-block;
+            animation: floatEmoji 3s ease-in-out infinite;
+        }
+        
+        @keyframes floatEmoji {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(5deg);
+            }
+        }
+        
+        .cta-primary {
+            display: inline-block;
+            background: var(--vtc-gradient);
+            color: white;
+            font-weight: 600;
+            padding: 18px 36px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards 1s;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+        
+        .cta-primary:after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shineEffect 4s infinite;
+        }
+        
+        /* Карточки-возможности */
+        .feature-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--glass-shadow);
+            border: var(--glass-border);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .feature-title {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+        
+        /* Секция с таймлайном */
+        .timeline-section {
+            margin-top: 80px;
+            position: relative;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--vtc-gradient);
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+        }
+        
+        .timeline-content {
+            position: relative;
+            width: 45%;
+            padding: 20px 30px;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: var(--glass-shadow);
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: auto;
+        }
+        
+        .timeline-date {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--vtc-accent);
+            border-radius: 20px;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .timeline-title {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--vtc-accent);
+            border-radius: 50%;
+            top: 30px;
+            left: 50%;
+            margin-left: -10px;
+            z-index: 1;
+        }
+        
+        /* Финансовая секция */
+        .price-tag {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            margin: 20px 0;
+            background: var(--vtc-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .price-old {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 2.5rem;
+            text-decoration: line-through;
+            color: #64748B;
+            opacity: 0.7;
+            margin-right: 20px;
+        }
+        
+        .discount-badge {
+            display: inline-block;
+            background: var(--vtc-accent);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        /* Медиа-запросы для адаптивности */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+            }
+            
+            .timeline-dot {
+                left: 30px;
+            }
+            
+            .hero-title {
+                font-size: clamp(1.8rem, 7vw, 3.5rem);
+            }
+            
+            .hero-subtitle {
+                font-size: clamp(1rem, 2.5vw, 1.5rem);
+                margin-bottom: 30px;
+            }
+            
+            .vtc-emoji {
+                font-size: 2rem;
+            }
+            
+            .cta-primary {
+                padding: 15px 30px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+                padding: 15px;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-dot {
+                left: 20px;
+            }
+            
+            .timeline-date {
+                padding: 5px 10px;
+                font-size: 0.8rem;
+            }
+            
+            .timeline-title {
+                font-size: 1.1rem;
+            }
+            
+            .price-tag {
+                font-size: 2.2rem;
+            }
+            
+            .price-old {
+                font-size: 1.8rem;
+            }
+        }
+        
+        /* Преимущества работы с нами */
+        .benefits-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .benefit-item {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-bottom: 3px solid var(--vtc-secondary);
+        }
+        
+        .benefit-title {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .benefit-icon {
+            font-size: 1.5rem;
+        }
+        
+        /* Дополнительные стили */
+        .highlight-box {
+            background: rgba(59, 130, 246, 0.15);
+            border-left: 4px solid var(--vtc-accent);
+            padding: 15px 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+        
+        .highlight-text {
+            color: var(--vtc-accent);
+            font-weight: 600;
+        }
+        
+        .stack-item {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.2);
+            padding: 8px 15px;
+            border-radius: 50px;
+            margin: 5px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        @keyframes titleAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes shineEffect {
+            0% {
+                left: -150%;
+            }
+            100% {
+                left: 150%;
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Титульный слайд -->
+    <section id="title-slide">
+        <div class="title-content">
+            <span class="discount-badge">Акция до 10 апреля 2025</span>
+            <h1 class="hero-title">Виртуальный Торговый Центр <span class="vtc-emoji">🛒</span></h1>
+            <p class="hero-subtitle">Создание 3D-платформы для аренды виртуальных магазинов, навигации, общения и покупок товаров в интерактивном пространстве</p>
+            <a href="https://t.me/nikmcfly" class="cta-primary">Начать сотрудничество</a>
+        </div>
+    </section>
+
+    <!-- Основное содержимое -->
+    <div class="proposal-container">
+        <!-- Концепция проекта -->
+        <section class="slide" id="concept">
+            <div class="section-header">
+                <h2>🔥 Концепция проекта</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="glass-card">
+                <div class="highlight-box">
+                    <p><span class="highlight-text">Это не просто онлайн-магазин.</span> Это новая форма цифровой торговли с душой метавселенной, но без перегруза, красиво, удобно, в браузере, без VR-гарнитур.</p>
+                </div>
+                
+                <p>В нашем виртуальном торговом центре:</p>
+                <ul>
+                    <li>Пользователь персонажем входит в 3D-мир</li>
+                    <li>Прогуливается по этажам виртуального центра</li>
+                    <li>Общается с другими в реальном времени</li>
+                    <li>Заходит в магазины, рассматривает товары на стенах</li>
+                    <li>Взаимодействует с ИИ-консультантами</li>
+                    <li>Оформляет покупку, как в игре — но с реальными товарами и реальной доставкой</li>
+                </ul>
+                
+                <div class="benefits-box">
+                    <div class="benefit-item">
+                        <div class="benefit-title"><span class="benefit-icon">🎮</span> Интерактивность</div>
+                        <p>Полное погружение в процесс покупок через игровые механики и 3D-взаимодействие</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-title"><span class="benefit-icon">👥</span> Социальный опыт</div>
+                        <p>Общение с другими покупателями и продавцами в реальном времени</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-title"><span class="benefit-icon">🤖</span> ИИ-поддержка</div>
+                        <p>Виртуальные консультанты помогают с навигацией и подбором товаров</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-title"><span class="benefit-icon">💻</span> Кроссплатформенность</div>
+                        <p>Доступ через браузер и мобильные приложения без сложных требований</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Функциональность Альфа-версии -->
+        <section class="slide" id="features">
+            <div class="section-header">
+                <h2>⚙️ Что входит в Альфа-версию</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="glass-card">
+                <p class="highlight-text" style="margin-bottom: 20px;">Реализация за 4 месяца:</p>
+                
+                <h3>🧱 1. Базовая архитектура</h3>
+                <ul>
+                    <li>Стартовая сцена: «Круг новичков» + террариум</li>
+                    <li>1 этаж торгового центра</li>
+                    <li>4 магазина (2 по 5 товаров, 2 по 10)</li>
+                    <li>Аватары (муж/жен)</li>
+                    <li>Система авторизации и регистрации</li>
+                    <li>Хостинг + CDN + оптимизация загрузки ассетов</li>
+                </ul>
+                
+                <h3>🕹 2. Навигация и взаимодействие</h3>
+                <ul>
+                    <li>Перемещение по этажу (WASD / свайпы)</li>
+                    <li>Вход в здание</li>
+                    <li>Заход в магазины</li>
+                    <li>Общий чат</li>
+                    <li>Синхронизация аватаров (WebSocket мультиплеер)</li>
+                </ul>
+                
+                <h3>📦 3. Магазины и товары</h3>
+                <ul>
+                    <li>Упрощенная система аренды (выбор свободного магазина)</li>
+                    <li>Загрузка товаров: 250x250 изображение + описание</li>
+                    <li>Отображение на стенах</li>
+                    <li>Ресайз фото, если превышает размер</li>
+                    <li>Ошибка, если меньше допустимого</li>
+                </ul>
+                
+                <h3>🤖 4. ИИ-агенты (NPC)</h3>
+                <ul>
+                    <li>NPS на этаже у стойки</li>
+                    <li>Отвечает на вопросы о локации товаров</li>
+                    <li>Может подсказать написать в поиск</li>
+                    <li>Основа — RAG-система без внешней интеграции (своя база данных + диалоговая логика)</li>
+                    <li>Реалистичный внешний вид (если нужно — Audio2Face, TTS, STT)</li>
+                </ul>
+                
+                <h3>🔎 5. Поиск</h3>
+                <ul>
+                    <li>Поиск по товарам по ключевому слову</li>
+                    <li>Телепортация к нужному магазину/комнате</li>
+                    <li>Позже можно расширить на голосовой поиск</li>
+                </ul>
+                
+                <h3>📱 6. Платформы</h3>
+                <ul>
+                    <li>Web (основа, максимальная совместимость)</li>
+                    <li>Обёртки под Android/iOS (Capacitor или PWA)</li>
+                    <li>Возможность быстро масштабировать под нативные платформы</li>
+                </ul>
+                
+                <h3>🎨 7. Графика</h3>
+                <ul>
+                    <li>Ультрасовременный визуал на WebGL (Three.js / Babylon.js)</li>
+                    <li>PBR-материалы, свет, отражения, реалистичные текстуры</li>
+                    <li>Быстрая загрузка через подгрузку зон (lazy loading)</li>
+                    <li>Поддержка слабых устройств через оптимизацию</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Дополнительные вау-фичи -->
+        <section class="slide" id="wow-features">
+            <div class="section-header">
+                <h2>💡 Дополнительные вау-фичи</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="glass-card">
+                <div class="benefits-box">
+                    <div class="benefit-item">
+                        <div class="benefit-title"><span class="benefit-icon">🎭</span> Режим "невидимки"</div>
+                        <p>Тайный посетитель (например, для владельцев магазинов)</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-title"><span class="benefit-icon">🧠</span> ИИ-консультант</div>
+                        <p>Внутри магазина (по описанию товара)</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-title"><span class="benefit-icon">🛍</span> Комнаты интересов</div>
+                        <p>Неформальные локации внутри ТЦ</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-title"><span class="benefit-icon">🖼</span> Живая стена желаний</div>
+                        <p>Можно написать, что ищешь</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-title"><span class="benefit-icon">🎤</span> ИИ-опросы от NPC</div>
+                        <p>Сбор данных о поведении и желаниях пользователей</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-title"><span class="benefit-icon">🧬</span> Кастомизация аватара</div>
+                        <p>Позже — примерка одежды</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Технологический стек -->
+        <section class="slide" id="tech-stack">
+            <div class="section-header">
+                <h2>👨‍💻 Технологический стек</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="glass-card">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <span class="stack-item">Three.js / Babylon.js</span>
+                    <span class="stack-item">React</span>
+                    <span class="stack-item">Node.js</span>
+                    <span class="stack-item">Supabase / Firebase</span>
+                    <span class="stack-item">PostgreSQL / Firestore</span>
+                    <span class="stack-item">WebSocket</span>
+                    <span class="stack-item">RAG-подсистема</span>
+                    <span class="stack-item">TTS/STT</span>
+                </div>
+                
+                <div class="highlight-box">
+                    <p>Наша архитектура обеспечивает плавное взаимодействие пользователей в 3D-пространстве с минимальной задержкой и максимальной производительностью даже на устройствах среднего класса.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Сроки -->
+        <section class="slide" id="timeline">
+            <div class="section-header">
+                <h2>📅 Сроки</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="glass-card">
+                <p>Полная реализация Альфа-версии: <span class="highlight-text">4 месяца</span></p>
+                
+                <div class="timeline-section">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">1–2 неделя</div>
+                                <h3 class="timeline-title">Старт проекта</h3>
+                                <p>UI, 3D-сцена, перемещение</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">3–6 неделя</div>
+                                <h3 class="timeline-title">Основной функционал</h3>
+                                <p>Мультиплеер, магазины, товары</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">7–10 неделя</div>
+                                <h3 class="timeline-title">Расширенный функционал</h3>
+                                <p>NPC, загрузка, чат, база</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">11–16 неделя</div>
+                                <h3 class="timeline-title">Финальный этап</h3>
+                                <p>Тесты, адаптация, оптимизация</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Бюджет -->
+        <section class="slide" id="budget">
+            <div class="section-header">
+                <h2>💰 Бюджет</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="glass-card" style="text-align: center;">
+                <h3>Полная стоимость Альфа-версии:</h3>
+                <p class="price-old">9 000 000 ₽</p>
+                
+                <div class="highlight-box" style="margin: 30px auto; max-width: 700px; text-align: left;">
+                    <h3>🎯 Акция:</h3>
+                    <p>При подписании договора до 10 апреля 2025, мы передаём проект в наш новый R&D-отдел, который:</p>
+                    <ul>
+                        <li>Работает быстрее</li>
+                        <li>Применяет передовые методы ИИ и веб-графики</li>
+                        <li>Вовлекает клиента в творческий процесс</li>
+                    </ul>
+                    <p><span class="highlight-text">Вы получаете скидку: 2 500 000 ₽</span></p>
+                </div>
+                
+                <h3>Итоговая стоимость:</h3>
+                <p class="price-tag">6 500 000 ₽</p>
+                
+                <h3 style="margin-top: 40px;">💸 Условия оплаты</h3>
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px;">
+                    <div style="flex: 1; min-width: 200px; max-width: 300px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 15px;">
+                        <h4 style="margin-bottom: 10px;">40%</h4>
+                        <p>Старт разработки</p>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; max-width: 300px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 15px;">
+                        <h4 style="margin-bottom: 10px;">30%</h4>
+                        <p>После демо версии (мультиплеер, чат, магазины)</p>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; max-width: 300px; padding: 20px; background: rgba(59, 130, 246, 0.1); border-radius: 15px;">
+                        <h4 style="margin-bottom: 10px;">30%</h4>
+                        <p>После сдачи проекта и тестирования</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Почему мы -->
+        <section class="slide" id="why-us">
+            <div class="section-header">
+                <h2>✅ Почему мы</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="glass-card">
+                <div class="benefits-box">
+                    <div class="benefit-item">
+                        <div class="benefit-title"><span class="benefit-icon">🚀</span> Технологическая команда</div>
+                        <p>Креативный R&D-отдел с опытом в создании интерактивных 3D-сред</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-title"><span class="benefit-icon">🎮</span> Игровая экспертиза</div>
+                        <p>Специалисты по игровым, мультиплеерным и UX-системам</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-title"><span class="benefit-icon">🤖</span> ИИ-интеграция</div>
+                        <p>Опыт в интеграции ИИ и интерактивных агентов в коммерческие проекты</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-title"><span class="benefit-icon">🛠</span> Гибкая архитектура</div>
+                        <p>Настраиваемый процесс разработки под ваши потребности и vision</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <p class="highlight-text">Мы видим миссию в развитии новых цифровых миров</p>
+                    <p>Наш подход не ограничивается созданием обычного онлайн-магазина – мы строим полноценную экосистему для виртуальной торговли, сочетающую социальное взаимодействие, геймификацию и коммерцию в едином опыте.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Призыв к действию -->
+        <section class="slide" id="cta">
+            <div class="glass-card" style="text-align: center; padding: 60px;">
+                <h2 style="margin-bottom: 30px;">📞 Готовы обсудить детали?</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    Мы можем начать уже на следующей неделе и показать первые результаты через 10 дней. Свяжитесь с нами, чтобы обсудить ваше видение проекта и начать создание Виртуального Торгового Центра.
+                </p>
+                <a href="https://t.me/nikmcfly" class="cta-primary" style="font-size: 1.3rem; padding: 20px 40px;">Начать сотрудничество</a>
+                
+                <div style="margin-top: 40px; display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+                    <div style="text-align: left;">
+                        <p style="margin-bottom: 5px;"><strong>Контакт:</strong></p>
+                        <p>👤 Менеджер проекта</p>
+                        <p>📧 info@example.com</p>
+                        <p>📞 +7 (XXX) XXX-XX-XX</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script-dealai.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Добавляем все кнопки и ссылки на Telegram
+            const allButtons = document.querySelectorAll('a.cta-primary');
+            allButtons.forEach(button => {
+                button.setAttribute('target', '_blank');
+                if (!button.href.includes('t.me/')) {
+                    button.href = 'https://t.me/nikmcfly';
+                }
+            });
+
+            // Создаем AI-частицы на заднем фоне титульного слайда
+            function createAIParticles() {
+                const titleSlide = document.getElementById('title-slide');
+                const particlesContainer = document.createElement('div');
+                particlesContainer.className = 'particles-container';
+                particlesContainer.style.position = 'absolute';
+                particlesContainer.style.top = '0';
+                particlesContainer.style.left = '0';
+                particlesContainer.style.width = '100%';
+                particlesContainer.style.height = '100%';
+                particlesContainer.style.overflow = 'hidden';
+                particlesContainer.style.zIndex = '1';
+                
+                titleSlide.insertBefore(particlesContainer, titleSlide.firstChild);
+                
+                // Создаем больше частиц для лучшего эффекта
+                const particleCount = window.innerWidth < 768 ? 30 : 50;
+                const particleColors = [
+                    'rgba(59, 130, 246, 0.6)', // Синий
+                    'rgba(16, 185, 129, 0.6)', // Зеленый
+                    'rgba(99, 102, 241, 0.6)', // Индиго
+                    'rgba(14, 165, 233, 0.6)'  // Голубой
+                ];
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    const size = Math.random() * 15 + 5;
+                    const colorIndex = Math.floor(Math.random() * particleColors.length);
+                    
+                    particle.className = 'ai-particle';
+                    particle.style.position = 'absolute';
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.borderRadius = Math.random() > 0.5 ? '50%' : '30%';
+                    particle.style.backgroundColor = particleColors[colorIndex];
+                    particle.style.boxShadow = `0 0 ${size/2}px ${particleColors[colorIndex]}`;
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.top = `${Math.random() * 100}%`;
+                    particle.style.opacity = Math.random() * 0.7 + 0.3;
+                    
+                    // Различные анимации для разных частиц
+                    const animationDuration = Math.random() * 30 + 20;
+                    const animationDelay = Math.random() * 10;
+                    particle.style.animation = `floatParticle ${animationDuration}s linear infinite`;
+                    particle.style.animationDelay = `-${animationDelay}s`;
+                    
+                    particlesContainer.appendChild(particle);
+                }
+                
+                // Создаем стиль для анимации
+                const styleElement = document.createElement('style');
+                styleElement.textContent = `
+                    @keyframes floatParticle {
+                        0% {
+                            transform: translate3d(0, 0, 0) rotate(0deg);
+                        }
+                        25% {
+                            transform: translate3d(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px, 0) rotate(90deg);
+                        }
+                        50% {
+                            transform: translate3d(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px, 0) rotate(180deg);
+                        }
+                        75% {
+                            transform: translate3d(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px, 0) rotate(270deg);
+                        }
+                        100% {
+                            transform: translate3d(0, 0, 0) rotate(360deg);
+                        }
+                    }
+                `;
+                document.head.appendChild(styleElement);
+                
+                // Добавляем 3D-эффект при движении мыши
+                titleSlide.addEventListener('mousemove', (e) => {
+                    const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                    const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                    
+                    particlesContainer.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+                    
+                    // Двигаем частицы при движении мыши
+                    const particles = document.querySelectorAll('.ai-particle');
+                    particles.forEach(particle => {
+                        const speed = parseFloat(particle.style.width) / 10;
+                        const xMove = xAxis * speed;
+                        const yMove = yAxis * speed;
+                        particle.style.transform = `translate(${xMove}px, ${yMove}px)`;
+                    });
+                });
+                
+                // Возвращаем в исходное положение при выходе мыши
+                titleSlide.addEventListener('mouseleave', () => {
+                    particlesContainer.style.transform = 'rotateY(0deg) rotateX(0deg)';
+                    
+                    const particles = document.querySelectorAll('.ai-particle');
+                    particles.forEach(particle => {
+                        particle.style.transform = 'translate(0px, 0px)';
+                    });
+                });
+            }
+            
+            // Инициализируем AI-частицы
+            createAIParticles();
+            
+            // Анимация при скролле
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.glass-card, .feature-card, .benefit-item, .timeline-item');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+
+            // Добавляем стили для анимации скролла
+            const styleElement = document.createElement('style');
+            styleElement.textContent = `
+                .glass-card, .feature-card, .benefit-item, .timeline-item {
+                    opacity: 0;
+                    transform: translateY(30px);
+                    transition: opacity 0.8s ease, transform 0.8s ease;
+                }
+            `;
+            document.head.appendChild(styleElement);
+
+            // Вызываем анимацию при загрузке и скролле
+            animateOnScroll();
+            window.addEventListener('scroll', animateOnScroll);
+        });
+    </script>
+</body>
+</html> 
