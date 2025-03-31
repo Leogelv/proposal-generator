@@ -1,0 +1,20 @@
+Сервер запущен на порту 3001
+Откройте http://localhost:3001 в вашем браузере
+HEAD /tarotapp.html
+HEAD /styles-tarot.css
+HEAD /script-tarot.js
+GET /api/signed-url
+GET /__nextjs_original-stack-frame?isServer=false&isEdgeServer=false&isAppDirectory=true&errorMessage=Error%3A+Failed+to+get+signed+url&file=file%3A%2F%2F%2FUsers%2Fgelvihleonid%2FDocuments%2FAiDEV%2FCODEPROJECTS%2FCONVAI+TEMPL+11lab%2F.next%2Fstatic%2Fchunks%2Fnode_modules_next_dist_client_34bfc0._.js&methodName=captureStackTrace&arguments=&lineNumber=302&column=23
+GET /__nextjs_original-stack-frame?isServer=false&isEdgeServer=false&isAppDirectory=true&errorMessage=Error%3A+Failed+to+get+signed+url&file=file%3A%2F%2F%2FUsers%2Fgelvihleonid%2FDocuments%2FAiDEV%2FCODEPROJECTS%2FCONVAI+TEMPL+11lab%2F.next%2Fstatic%2Fchunks%2Fnode_modules_next_dist_client_34bfc0._.js&methodName=console.error&arguments=&lineNumber=975&column=62
+GET /__nextjs_original-stack-frame?isServer=false&isEdgeServer=false&isAppDirectory=true&errorMessage=Error%3A+Failed+to+get+signed+url&file=file%3A%2F%2F%2FUsers%2Fgelvihleonid%2FDocuments%2FAiDEV%2FCODEPROJECTS%2FCONVAI+TEMPL+11lab%2F.next%2Fstatic%2Fchunks%2F_9d078e._.js&methodName=startConversation&arguments=&lineNumber=641&column=21
+GET /__nextjs_original-stack-frame?isServer=false&isEdgeServer=false&isAppDirectory=true&errorMessage=Error%3A+Failed+to+get+signed+url&file=file%3A%2F%2F%2FUsers%2Fgelvihleonid%2FDocuments%2FAiDEV%2FCODEPROJECTS%2FCONVAI+TEMPL+11lab%2F.next%2Fstatic%2Fchunks%2Fnode_modules_next_dist_client_34bfc0._.js&methodName=captureStackTrace&arguments=&lineNumber=302&column=23
+GET /__nextjs_original-stack-frame?isServer=false&isEdgeServer=false&isAppDirectory=true&errorMessage=Error%3A+Failed+to+get+signed+url&file=file%3A%2F%2F%2FUsers%2Fgelvihleonid%2FDocuments%2FAiDEV%2FCODEPROJECTS%2FCONVAI+TEMPL+11lab%2F.next%2Fstatic%2Fchunks%2Fnode_modules_next_dist_client_34bfc0._.js&methodName=console.error&arguments=&lineNumber=975&column=62
+GET /__nextjs_original-stack-frame?isServer=false&isEdgeServer=false&isAppDirectory=true&errorMessage=Error%3A+Failed+to+get+signed+url&file=file%3A%2F%2F%2FUsers%2Fgelvihleonid%2FDocuments%2FAiDEV%2FCODEPROJECTS%2FCONVAI+TEMPL+11lab%2F.next%2Fstatic%2Fchunks%2F_9d078e._.js&methodName=startConversation&arguments=&lineNumber=641&column=21
+GET /
+GET /styles.css
+GET /script.js
+GET /favicon.ico
+GET /tarotapp.html
+GET /styles-tarot.css
+GET /script-tarot.js
+GET /favicon.ico

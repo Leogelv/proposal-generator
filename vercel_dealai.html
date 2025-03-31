@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEALAI & AIAvatar - Интеллектуальные решения для форумов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Unbounded:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles-dealai.css">
+    <style>
+        /* Инлайн-стили для адаптивной главной секции без изменения основных стилей */
+        #title-slide {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--dark-bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 90% 50%, rgba(139, 92, 246, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 30% 80%, rgba(236, 72, 153, 0.2) 0%, transparent 40%);
+            background-attachment: fixed;
+            overflow: hidden;
+        }
+        
+        .title-content {
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 20px;
+            text-align: center;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-family: 'Unbounded', sans-serif;
+            font-size: clamp(2rem, 6vw, 5.5rem);
+            line-height: 1.1;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: titleAnimation 1.5s ease-out forwards;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            max-width: 100%;
+            padding: 0 10px;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards 0.5s;
+        }
+        
+        .ai-emoji {
+            font-size: 2.5rem;
+            margin: 0 10px;
+            vertical-align: middle;
+            display: inline-block;
+            animation: pulseEmoji 2s infinite;
+        }
+        
+        .cta-primary {
+            display: inline-block;
+            background: var(--primary-gradient);
+            color: white;
+            font-weight: 600;
+            padding: 18px 36px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards 1s;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+        
+        .cta-primary:after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shineEffect 4s infinite;
+        }
+        
+        /* Анимации */
+        @keyframes titleAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+                background-position: 0% 50%;
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                background-position: 100% 50%;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulseEmoji {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+        
+        @keyframes shineEffect {
+            0% {
+                left: -100%;
+                top: -100%;
+            }
+            20%, 100% {
+                left: 100%;
+                top: 100%;
+            }
+        }
+        
+        /* Бургер-меню */
+        .burger-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            cursor: pointer;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .burger-menu:hover {
+            transform: scale(1.1);
+        }
+        
+        .burger-icon {
+            font-size: 1.8rem;
+        }
+        
+        .menu-container {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-left: var(--glass-border);
+            z-index: 999;
+            transition: right 0.3s ease;
+            padding: 100px 30px 30px;
+            box-shadow: var(--glass-shadow);
+        }
+        
+        .menu-container.open {
+            right: 0;
+        }
+        
+        .nav-link {
+            display: block;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 15px 0;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #fff;
+            padding-left: 10px;
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        /* Остальные стили */
+        .solution-content {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        .solution-description {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        .table-cell {
+            word-break: break-word;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: clamp(1.8rem, 9vw, 3rem);
+                padding: 0 5px;
+                line-height: 1.2;
+            }
+            
+            .ai-emoji {
+                font-size: 1.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: clamp(0.9rem, 3vw, 1.2rem);
+                margin-bottom: 30px;
+            }
+            
+            .cta-primary {
+                padding: 15px 30px;
+                font-size: 1rem;
+            }
+            
+            .burger-menu {
+                top: 10px;
+                right: 10px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .cta-buttons {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+            
+            .cta-buttons .outline-button {
+                margin-left: 0;
+                margin-top: 0;
+            }
+            
+            .solution-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .tech-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Бургер-меню -->
+    <div class="burger-menu" onclick="toggleMenu()">
+        <div class="burger-icon">☰</div>
+    </div>
+    
+    <nav class="menu-container" id="menu">
+        <a href="#title-slide" class="nav-link">Главная</a>
+        <a href="#benefits-slide" class="nav-link">Преимущества</a>
+        <a href="#solutions-slide" class="nav-link">Решения</a>
+        <a href="#requirements-slide" class="nav-link">Требования</a>
+        <a href="#timeline-slide" class="nav-link">Сроки</a>
+        <a href="#budget-slide" class="nav-link">Смета</a>
+        <a href="#final-slide" class="nav-link">Контакты</a>
+    </nav>
+
+    <!-- Полноэкранный титульный слайд с эмодзи и анимациями -->
+    <section class="slide" id="title-slide">
+        <div class="title-content">
+            <h1 class="hero-title">ИНТЕЛЛЕКТУАЛЬНЫЕ<br>РЕШЕНИЯ ДЛЯ ФОРУМОВ</h1>
+            <div class="hero-subtitle">
+                <span class="ai-emoji">🤖</span> 
+                Инновационные ИИ-системы для нетворкинга и поддержки участников 
+                <span class="ai-emoji">🚀</span>
+            </div>
+            <a href="https://t.me/nikmcfly" class="cta-primary" target="_blank">Начать сотрудничество</a>
+        </div>
+    </section>
+
+    <div class="proposal-container">
+        <!-- Слайд с преимуществами -->
+        <section class="slide" id="benefits-slide">
+            <div class="section-header">
+                <h2>Что вы получаете</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🧠</div>
+                    <div class="benefit-text">Два взаимодополняющих ИИ-решения для форумов</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📱</div>
+                    <div class="benefit-text">Интеграция с Telegram для максимального удобства</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎤</div>
+                    <div class="benefit-text">Голосовой и текстовый интерфейс для всех пользователей</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">⏱️</div>
+                    <div class="benefit-text">Готовность к запуску уже к 25 марта</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Решения -->
+        <section class="slide" id="solutions-slide">
+            <div class="section-header">
+                <h2>Наши решения</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <!-- Решение 1: DEALAI -->
+            <div class="solution-card featured-card">
+                <div class="solution-number">01</div>
+                <div class="solution-content">
+                    <h3>"DEALAI" — Система интеллектуального нетворкинга</h3>
+                    <div class="solution-icon">🤝</div>
+                    <div class="solution-description">
+                        <p>Передовая платформа для профессиональных связей, которая изменит подход к знакомствам на форумах. Это не просто инструмент для обмена контактами, а полноценный ИИ-помощник, соединяющий участников с общими интересами и целями.</p>
+                        
+                        <div class="features-section">
+                            <div class="feature-title">🔍 Основные функции:</div>
+                            <ul>
+                                <li>Голосовой и текстовый ввод: Заполняйте анкету голосом на киоске или текстом в Telegram</li>
+                                <li>Анализ и подбор ИИ: Искусственный интеллект изучает профили и предлагает идеальных партнеров</li>
+                                <li>Интеграция с Telegram: Уведомления о новых контактах, чаты и управление связями</li>
+                                <li>Физические киоски: Современные станции с сенсорными экранами и микрофонами</li>
+                                <li>Конфиденциальность: Все данные обрабатываются локально, без облачных сервисов</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-benefits">
+                            <div class="benefit-title">🚀 Преимущества:</div>
+                            <ul>
+                                <li>Экономия времени: Быстро находите нужных людей без лишних усилий</li>
+                                <li>Точность подбора: ИИ гарантирует соответствие контактов вашим задачам</li>
+                                <li>Современный подход: Инновационный интерфейс повышает вовлеченность участников</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tech-section">
+                            <div class="tech-title">⚙️ Технологический стек:</div>
+                            <div class="tech-grid">
+                                <div class="tech-category">
+                                    <div class="tech-category-title">Интерфейс:</div>
+                                    <ul>
+                                        <li>Telegram Mini Apps (JavaScript)</li>
+                                        <li>React для интерактивных интерфейсов киосков</li>
+                                    </ul>
+                                </div>
+                                <div class="tech-category">
+                                    <div class="tech-category-title">Серверная часть:</div>
+                                    <ul>
+                                        <li>Node.js + Express</li>
+                                        <li>Supabase для хранения данных</li>
+                                    </ul>
+                                </div>
+                                <div class="tech-category">
+                                    <div class="tech-category-title">ИИ и голос:</div>
+                                    <ul>
+                                        <li>OpenAI/Anthropic для анализа</li>
+                                        <li>Yandex SpeechKit для распознавания речи</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="workflow-section">
+                            <div class="workflow-title">🔄 Как это работает:</div>
+                            <ol class="workflow-steps">
+                                <li>Регистрация: Участники регистрируются через киоск или Telegram</li>
+                                <li>Анализ ИИ: Система оценивает профиль и сравнивает его с другими участниками</li>
+                                <li>Подбор: Вы получаете список "Топ-5 контактов" и "10 дополнительных вариантов"</li>
+                                <li>Уведомления: Telegram отправляет сообщения о потенциальных контактах</li>
+                                <li>Общение: Обменивайтесь контактами и планируйте встречи прямо в платформе</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="solution-meta">
+                        <div class="solution-price">💰 18 000 $</div>
+                        <div class="solution-time">⏳ 13 дней (к 25 марта)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Решение 2: AIAvatar -->
+            <div class="solution-card featured-card">
+                <div class="solution-number">02</div>
+                <div class="solution-content">
+                    <h3>"AIAvatar" — Интерактивный ИИ-ассистент</h3>
+                    <div class="solution-icon">🤖</div>
+                    <div class="solution-description">
+                        <p>Ваш персональный ИИ-помощник на форуме. Эта система предоставляет информацию о мероприятии, отвечает на вопросы об искусственном интеллекте и помогает устанавливать деловые связи через интеграцию с "DEALAI".</p>
+                        
+                        <div class="features-section">
+                            <div class="feature-title">🔍 Основные функции:</div>
+                            <ul>
+                                <li>Интерактивное общение: Взаимодействие через голос или текст</li>
+                                <li>Информация и ответы: Рассказывает о форуме и отвечает на вопросы про ИИ</li>
+                                <li>Поддержка нетворкинга: Подбирает контакты через интеграцию с "DEALAI"</li>
+                                <li>Конфиденциальность: Данные обрабатываются локально для безопасности</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-benefits">
+                            <div class="benefit-title">🚀 Преимущества:</div>
+                            <ul>
+                                <li>Персонализация: Индивидуальные ответы для каждого участника</li>
+                                <li>Скорость: Мгновенные рекомендации и информация</li>
+                                <li>Уникальность: Инновационный опыт для гостей форума</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tech-section">
+                            <div class="tech-title">⚙️ Технологический стек:</div>
+                            <div class="tech-grid">
+                                <div class="tech-category">
+                                    <div class="tech-category-title">Интерфейс:</div>
+                                    <ul>
+                                        <li>Telegram Mini Apps (JavaScript)</li>
+                                        <li>React для интерфейса киосков</li>
+                                    </ul>
+                                </div>
+                                <div class="tech-category">
+                                    <div class="tech-category-title">Серверная часть:</div>
+                                    <ul>
+                                        <li>Node.js + Express</li>
+                                        <li>Supabase для хранения данных</li>
+                                    </ul>
+                                </div>
+                                <div class="tech-category">
+                                    <div class="tech-category-title">ИИ и голос:</div>
+                                    <ul>
+                                        <li>OpenAI/Anthropic для диалогов</li>
+                                        <li>Yandex SpeechKit для распознавания речи</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="workflow-section">
+                            <div class="workflow-title">🔄 Как это работает:</div>
+                            <ol class="workflow-steps">
+                                <li>Взаимодействие: Задайте вопрос через киоск или Telegram</li>
+                                <li>Ответ: ИИ мгновенно предоставляет информацию о форуме или ИИ</li>
+                                <li>Нетворкинг: Запросите контакты, и "AIAvatar" предложит варианты из "DEALAI"</li>
+                                <li>Уведомления: Получайте рекомендации через Telegram</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="solution-meta">
+                        <div class="solution-price">💰 12 000 $</div>
+                        <div class="solution-time">⏳ 13 дней (к 25 марта)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Комбинированное предложение -->
+            <div class="solution-card combo-card">
+                <div class="solution-number">🔥</div>
+                <div class="solution-content">
+                    <h3>Комплексное решение: DEALAI + AIAvatar</h3>
+                    <div class="solution-icon">💼</div>
+                    <div class="solution-description">
+                        <p>Получите максимальную выгоду, заказав оба решения вместе. Комплексный подход обеспечит полное покрытие потребностей форума в нетворкинге и информационной поддержке.</p>
+                        <div class="solution-benefits">
+                            <div class="benefit-title">🚀 Преимущества комплекса:</div>
+                            <ul>
+                                <li>Полная интеграция систем между собой</li>
+                                <li>Единая инфраструктура и техническая поддержка</li>
+                                <li>Оптимизация затрат на разработку и внедрение</li>
+                                <li>Комплексное решение всех задач форума</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="solution-meta">
+                        <div class="solution-price">💰 28 000 $ <span class="discount">(экономия 2 000 $)</span></div>
+                        <div class="solution-time">⏳ 13 дней (к 25 марта)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Требования к оборудованию -->
+        <section class="slide" id="requirements-slide">
+            <div class="section-header">
+                <h2>Требования к оборудованию</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="requirements-grid">
+                <div class="requirement-card">
+                    <div class="requirement-icon">💻</div>
+                    <h3>Аппаратное обеспечение</h3>
+                    <ul>
+                        <li>LED дисплей большого размера (до 2 метров высотой)</li>
+                        <li>Микрофон с шумоподавлением</li>
+                        <li>Процессор: минимум Intel i5 или аналог</li>
+                        <li>Оперативная память: 8 ГБ</li>
+                        <li>Накопитель: SSD 256 ГБ</li>
+                        <li>Подключение к локальному серверу (LAN)</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <div class="requirement-icon">🖥️</div>
+                    <h3>Программное обеспечение</h3>
+                    <ul>
+                        <li>ОС: Linux (Ubuntu) для стабильности</li>
+                        <li>Установленные библиотеки для React</li>
+                        <li>Установленные библиотеки для Whisper</li>
+                        <li>Настроенное подключение к API</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <div class="requirement-icon">🎨</div>
+                    <h3>Дизайн киосков</h3>
+                    <ul>
+                        <li>Компактный корпус с устойчивой подставкой</li>
+                        <li>Брендирование в стиле форума</li>
+                        <li>Эргономичное расположение элементов</li>
+                        <li>Защита от повреждений</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Сроки разработки -->
+        <section class="slide" id="timeline-slide">
+            <div class="section-header">
+                <h2>Сроки разработки</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="timeline-container">
+                <div class="timeline-header">
+                    <div class="timeline-title">Для выполнения к 25 марта (13 дней):</div>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">1-5</div>
+                        <div class="timeline-content">
+                            <div class="timeline-item-title">Проектирование и настройка</div>
+                            <ul>
+                                <li>Проектирование архитектуры</li>
+                                <li>Настройка серверной инфраструктуры</li>
+                                <li>Интеграция ИИ-компонентов</li>
+                                <li>Настройка баз данных</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker">6-9</div>
+                        <div class="timeline-content">
+                            <div class="timeline-item-title">Разработка интерфейсов</div>
+                            <ul>
+                                <li>Создание Telegram Mini Apps</li>
+                                <li>Разработка интерфейсов для киосков</li>
+                                <li>Интеграция голосовых интерфейсов</li>
+                                <li>Настройка уведомлений</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker">10-12</div>
+                        <div class="timeline-content">
+                            <div class="timeline-item-title">Тестирование и отладка</div>
+                            <ul>
+                                <li>Функциональное тестирование</li>
+                                <li>Нагрузочное тестирование</li>
+                                <li>Исправление ошибок</li>
+                                <li>Оптимизация производительности</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker">13</div>
+                        <div class="timeline-content">
+                            <div class="timeline-item-title">Развертывание</div>
+                            <ul>
+                                <li>Установка на месте проведения</li>
+                                <li>Финальная настройка</li>
+                                <li>Инструктаж персонала</li>
+                                <li>Запуск в эксплуатацию</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Итоговая смета -->
+        <section class="slide" id="budget-slide">
+            <div class="section-header">
+                <h2>Итоговая смета и сроки</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="budget-table">
+                <div class="table-header">
+                    <div class="table-cell">Решение</div>
+                    <div class="table-cell">Стоимость</div>
+                    <div class="table-cell">Сроки</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">"DEALAI" — Система интеллектуального нетворкинга</div>
+                    <div class="table-cell">18 000 $</div>
+                    <div class="table-cell">13 дней</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">"AIAvatar" — Интерактивный ИИ-ассистент</div>
+                    <div class="table-cell">12 000 $</div>
+                    <div class="table-cell">13 дней</div>
+                </div>
+                <div class="table-row combo-row">
+                    <div class="table-cell">Комплексное решение (DEALAI + AIAvatar)</div>
+                    <div class="table-cell">28 000 $ <span class="discount">(экономия 2 000 $)</span></div>
+                    <div class="table-cell">13 дней</div>
+                </div>
+            </div>
+            
+            <div class="additional-options">
+                <h3>Дополнительные опции</h3>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <div class="option-title">Интеграция с CRM</div>
+                        <div class="option-price">от 2 000 $</div>
+                    </div>
+                    <div class="option-item">
+                        <div class="option-title">Расширенная аналитика</div>
+                        <div class="option-price">от 2 000 $</div>
+                    </div>
+                    <div class="option-item">
+                        <div class="option-title">Многоязычность</div>
+                        <div class="option-price">от 1 500 $</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Финальный слайд -->
+        <section class="slide" id="final-slide">
+            <div class="glass-card">
+                <h2>Готовы стартовать сразу после подтверждения! 🚀</h2>
+                <p class="final-text">Инновационные ИИ-решения для вашего форума будут готовы к 25 марта</p>
+                <div class="cta-buttons">
+                    <a href="https://t.me/nikmcfly" class="gradient-button" target="_blank">Подписать договор</a>
+                    <a href="https://t.me/nikmcfly" class="outline-button" target="_blank">Задать вопрос</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script-dealai.js"></script>
+    <script>
+        // Скрипт для бургер-меню
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('open');
+        }
+        
+        // Закрытие меню при клике на ссылку
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(event) {
+                document.getElementById('menu').classList.remove('open');
+                
+                // Плавный скролл
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Предотвращаем стандартное действие только для внутренних ссылок
+                    event.preventDefault();
+                }
+            });
+        });
+        
+        // Движение фона при перемещении мыши
+        document.addEventListener('mousemove', function(e) {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            const titleSlide = document.getElementById('title-slide');
+            if (titleSlide) {
+                titleSlide.style.backgroundPosition = 
+                    `calc(10% + ${moveX}px) calc(20% + ${moveY}px), 
+                     calc(90% + ${-moveX}px) calc(50% + ${-moveY}px), 
+                     calc(30% + ${moveX}px) calc(80% + ${-moveY}px)`;
+            }
+        });
+    </script>
+</body>
+</html> 
