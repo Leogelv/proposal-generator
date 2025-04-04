@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TitleSection from './components/TitleSection';
 import ConceptSection from './components/ConceptSection';
 import FeaturesSection from './components/FeaturesSection';
@@ -8,8 +9,9 @@ import TimelineSection from './components/TimelineSection';
 import BudgetSection from './components/BudgetSection';
 import WhyUsSection from './components/WhyUsSection';
 import CtaSection from './components/CtaSection';
+import TarotApp from './components/tarot/TarotApp';
 
-const App = () => {
+const MainApp = () => {
   useEffect(() => {
     console.log('Приложение запущено');
     
@@ -39,6 +41,17 @@ const App = () => {
       <WhyUsSection />
       <CtaSection />
     </div>
+  );
+};
+
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainApp />} />
+        <Route path="/tarotapp" element={<TarotApp />} />
+      </Routes>
+    </Router>
   );
 };
 
