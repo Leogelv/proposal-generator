@@ -57,7 +57,7 @@ const TarotPricing = () => {
                 ))}
               </ul>
               
-              <a href="#contact" className="cta-primary">
+              <a href="#contact" className="cta-button primary">
                 {pkg.isPremium ? 'Получить PRO' : 'Начать сейчас'}
               </a>
             </div>

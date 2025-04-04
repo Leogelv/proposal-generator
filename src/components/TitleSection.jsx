@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const TitleSection = () => {
   useEffect(() => {
@@ -123,7 +124,10 @@ const TitleSection = () => {
           </div>
         </div>
         
-        <a href="https://t.me/sapientweb" className="cta-primary">Начать сотрудничество</a>
+        <div className="cta-group">
+          <a href="https://t.me/sapientweb" className="cta-primary">Начать сотрудничество</a>
+          <Link to="/tarotapp" className="cta-secondary">Посмотреть TarotApp</Link>
+        </div>
       </div>
     </section>
   );

@@ -13,7 +13,7 @@ import TarotApp from './components/tarot/TarotApp';
 
 const MainApp = () => {
   useEffect(() => {
-    console.log('Приложение запущено');
+    console.log('Основное приложение запущено');
     
     // Логгирование загрузки секций
     setTimeout(() => {
@@ -45,6 +45,8 @@ const MainApp = () => {
 };
 
 const App = () => {
+  console.log('Приложение инициализировано');
+  
   return (
     <Router>
       <Routes>
