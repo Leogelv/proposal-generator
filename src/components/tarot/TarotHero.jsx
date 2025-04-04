@@ -4,14 +4,18 @@ const TarotHero = () => {
   return (
     <section className="hero-section">
       <div className="hero-content">
-        <h1 className="hero-title">TarotApp</h1>
-        <p className="hero-subtitle">Коммерческое предложение</p>
-        <div className="hero-description">
-          <p>Профессиональное приложение для тарологов и их клиентов</p>
-          <p>Автоматизация работы • Онлайн-консультации • Безопасность данных</p>
-        </div>
+        <span className="savings-badge">Экономия до 70%</span>
+        <h1 className="hero-title">TarotApp <span className="tarot-emoji">🔮</span> Мистика в твоём смартфоне</h1>
+        <p className="hero-subtitle">Создаём инновационное мобильное приложение для тарологов и энтузиастов с современным дизайном и интуитивным интерфейсом</p>
         <div className="hero-cta">
-          <a href="#pricing" className="cta-button primary">Выбрать тариф</a>
+          <a 
+            href="https://t.me/sapientweb" 
+            className="cta-button primary"
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            Начать сотрудничество
+          </a>
           <a 
             href="https://tarot-app-delta.vercel.app/" 
             target="_blank" 
