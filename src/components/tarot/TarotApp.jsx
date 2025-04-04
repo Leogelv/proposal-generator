@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import TarotHero from './TarotHero';
 import TarotFeatures from './TarotFeatures';
 import TarotPricing from './TarotPricing';
@@ -25,9 +24,6 @@ const TarotApp = () => {
 
   return (
     <div className="tarot-app">
-      <div className="nav-button">
-        <Link to="/" className="home-link">← Назад к ВТЦ</Link>
-      </div>
       <TarotHero />
       <TarotFeatures />
       <TarotPricing />
